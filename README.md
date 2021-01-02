@@ -41,6 +41,7 @@ A concrete example:
 After clicking the submit button you will get an answer in the same window, as follows: <br />
 <img width="200" src="https://user-images.githubusercontent.com/57855070/103459700-cfc13900-4d19-11eb-9292-4b2e21466a2a.png">
 
+After a few seconds the window closes automatically.
 
 ### Explanation of the algorithm:
 [wikipedia](https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm)
