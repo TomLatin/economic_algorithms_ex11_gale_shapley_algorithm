@@ -45,7 +45,7 @@ After a few seconds the window closes automatically.
 
 ### Explanation of the algorithm:
 [wikipedia](https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm)
-A good explanation on [YouTube]https://www.youtube.com/watch?v=FhRf0j068ZA), according to which I implemented the algorithm
+A good explanation on [YouTube](https://www.youtube.com/watch?v=FhRf0j068ZA), according to which I implemented the algorithm
 
 ### Credit:
 [YouTube](https://www.youtube.com/watch?v=FhRf0j068ZA), [repository](https://github.com/Schachte/stable-matching-algorithm)
