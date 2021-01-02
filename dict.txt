@@ -1,0 +1,11 @@
+student:
+ryan: [Yale,Harvard,NYU,MIT]
+josh: [Harvard,Yale,MIT,NYU]
+blake: [Harvard,MIT,NYU,Yale]
+connor: [Yale,Harvard,NYU,MIT]
+
+university:
+Yale: [ryan,blake,josh,connor]
+Harvard: [ryan,blake,connor,josh]
+NYU: [connor,josh,ryan,blake]
+MIT: [ryan,josh,connor,blake]
