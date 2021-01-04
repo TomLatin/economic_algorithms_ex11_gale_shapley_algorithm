@@ -2,7 +2,8 @@ import os
 import tkinter as tk
 from tkinter import font as tkfont, filedialog
 
-from gale_and_shapley_algorithm import init_dicts, activate_all_func, tentative_acceptance
+from gale_and_shapley_algorithm import init_dicts, stable_matching
+
 
 class SampleApp(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -17,14 +18,10 @@ class SampleApp(tk.Tk):
             global name_file
             name_file = filedialog.askopenfilename(filetypes=(('text files', 'txt'),))
             add_file.config(text=os.path.basename(name_file))
-            """
-            >>> name_file="dict.txt"
-            'Answer\nryan- Yale\n blake- Harvard\njosh- MIT\nconnor- NYU\n'
-            
-            """
+
 
         '''The method is responsible for writing the answer on the GUI and after a few seconds close the GUI'''
-        def print_ans_using_global():
+        def print_ans_using_global(tentative_acceptance:list ):
             ans = "Answer: \n"
             for i in range(len(tentative_acceptance)):
                 ans += str(tentative_acceptance[i]).replace("'", '').replace('[', '').replace(']', '').replace(',','-')+"\n"
@@ -41,14 +38,14 @@ class SampleApp(tk.Tk):
         add_file_label = tk.Label(self, text="Open A File:")
         add_file_label.grid(row=2, column=0, pady=20, padx=10)
 
+        preferred_rankings_student = {}
+        preferred_rankings_university = {}
         # Creat Submit Button
-        submit_btn = tk.Button(self, text="Submit",command=lambda: [init_dicts(name_file), activate_all_func(), print_ans_using_global()])
+        submit_btn = tk.Button(self, text="Submit",command=lambda: [init_dicts(name_file,preferred_rankings_student,preferred_rankings_university), print_ans_using_global(stable_matching(preferred_rankings_student, preferred_rankings_university))])
         submit_btn.grid(row=10, column=0, columnspan=2, pady=50, padx=40, ipadx=100)
 
 if __name__ == "__main__":
-    import doctest
-    (failures, tests) = doctest.testmod(report=True)
-    print("{} failures, {} tests".format(failures, tests))
+
     #Run the GUI
     main = SampleApp()
     main.mainloop()

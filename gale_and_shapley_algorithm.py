@@ -1,31 +1,41 @@
 import collections
 import doctest
 import os  # For check the path
-
-#Dictionaries that symbolize preferences
-preferred_rankings_student = {}
-preferred_rankings_university = {}
-
-#Lists
-free_student = []
-tentative_acceptance = []
-
-'''Initializes the students'''
-def init_free_student() -> None:
-    for student in preferred_rankings_student.keys():
-        free_student.append(student)
-
+import  sys
+import logging
+logger = logging.getLogger(__name__)
 
 '''Matching algorithm until stable match terminates'''
-def stable_matching() -> None:
+def stable_matching(preferred_rankings_student: dict, preferred_rankings_university: dict) -> None:
+
+    """
+    >>> preferred_rankings_student= {'ryan': ['Yale','Harvard','NYU','MIT'],'josh': ['Harvard','Yale','MIT','NYU'],'blake': ['Harvard','MIT','NYU','Yale'],'connor': ['Yale','Harvard','NYU','MIT']}
+    >>> preferred_rankings_university = {'Yale': ['ryan','blake','josh','connor'],'Harvard': ['ryan','blake','connor','josh'],'NYU': ['connor','josh','ryan','blake'],'MIT': ['ryan','josh','connor','blake']}
+    >>> stable_matching(preferred_rankings_student,preferred_rankings_university)
+    [['ryan', 'Yale'], ['blake', 'Harvard'], ['josh', 'MIT'], ['connor', 'NYU']]
+    """
+
+    """
+    >>> preferred_rankings_student= {'Tomer': ['Batya','Aviva','Gila'],'Shlomo': ['Aviva','Batya','Gila'],'Rafi': ['Batya','Aviva','Gila']}
+    >>> preferred_rankings_university = {'Aviva': ['Rafi','Shlomo','Tomer'],'Batya': ['Shlomo','Rafi','Tomer'],'Gila': ['Shlomo','Rafi','Tomer']}
+    >>> stable_matching(preferred_rankings_student,preferred_rankings_university)
+    [['Rafi', 'Batya'], ['Shlomo', 'Aviva'], ['Tomer', 'Gila']]
+    """
+    tentative_acceptance = []
+    free_student = []
+    for student in preferred_rankings_student.keys():
+        free_student.append(student)
     while len(free_student) > 0:
         for student in free_student:
-            begin_matching(student)
+            begin_matching(student,preferred_rankings_student, preferred_rankings_university, tentative_acceptance, free_student)
+    return tentative_acceptance
+
 
 
 '''Find the first free woman available to a man at any given time'''
-def begin_matching(student: str) -> None:
-    print("DEALING WITH %s" % student)
+def begin_matching(student: str,preferred_rankings_student:dict, preferred_rankings_university:dict, tentative_acceptance:list, free_student) -> None:
+
+    logger.info("DEALING WITH %s" % student)
     for university in preferred_rankings_student[student]:
 
         # Boolean for whether university is taken or not
@@ -35,20 +45,20 @@ def begin_matching(student: str) -> None:
             # tentatively acceptance the student and university
             tentative_acceptance.append([student, university])
             free_student.remove(student)
-            print('%s is no longer a free student and is now tentatively acceptance to %s' % (student, university))
+            logger.info('%s is no longer a free student and is now tentatively acceptance to %s' % (student, university))
             break
         elif len(taken_match) > 0:  #The university has already accepted another student
-            print('%s is taken already..' % university)
+            logger.info('%s is taken already..' % university)
 
             # Check ranking of the current student and the ranking of the 'to-be' student
             current_student = preferred_rankings_university[university].index(taken_match[0][0])
             potential_student = preferred_rankings_university[university].index(student)
 
             if current_student < potential_student:
-                print('The university satisfied with %s..' % (taken_match[0][0]))
+                logger.info('The university satisfied with %s..' % (taken_match[0][0]))
             else:
-                print('%s is better than %s' % (student, taken_match[0][0]))
-                print('Making %s free again.. and tentatively acceptance %s to %s' % (
+                logger.info('%s is better than %s' % (student, taken_match[0][0]))
+                logger.info('Making %s free again.. and tentatively acceptance %s to %s' % (
                     taken_match[0][0], student, university))
 
                 # The new student is acceptance
@@ -62,7 +72,7 @@ def begin_matching(student: str) -> None:
                 break
 
 '''Inserts a file that the user has uploaded the two dictionaries'''
-def init_dicts(path: str) -> None:
+def init_dicts(path: str, preferred_rankings_student, preferred_rankings_university) -> None:
     have_dict_student = False
     have_dict_university = False
     if os.path.exists(path):  # Path is good
@@ -105,9 +115,10 @@ def init_dicts(path: str) -> None:
                         preferred_rankings_university.update({key: preference_university_list})
                         line = file.readline()
 
+if __name__ == "__main__":
+    import doctest
+    (failures, tests) = doctest.testmod(report=True)
+    print("{} failures, {} tests".format(failures, tests))
 
-def activate_all_func() -> None:
-    init_free_student()
-    print(free_student)
-    stable_matching()
-    print(tentative_acceptance)
+    logger.addHandler(logging.StreamHandler(sys.stdout))
+    logger.setLevel(logging.INFO)

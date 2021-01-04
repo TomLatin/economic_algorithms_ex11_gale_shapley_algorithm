@@ -1,7 +1,7 @@
 student:
 Tomer: [Batya,Aviva,Gila]
 Shlomo: [Aviva,Batya,Gila]
-Rafi: [BatyaAviva,Gila]
+Rafi: [Batya,Aviva,Gila]
 
 university:
 Aviva: [Rafi,Shlomo,Tomer]
