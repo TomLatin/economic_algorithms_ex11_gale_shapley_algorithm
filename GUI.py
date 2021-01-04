@@ -11,6 +11,8 @@ class SampleApp(tk.Tk):
         tk.Tk.wm_title(self, "Gale&Shapley Algorithm")
         self.geometry("500x500")
         self.title_font = tkfont.Font(family='Times', size=18, weight="bold", slant="italic")
+
+        '''The method is responsible for importing the file'''
         def file_dialog():
             global name_file
             name_file = filedialog.askopenfilename(filetypes=(('text files', 'txt'),))
@@ -21,6 +23,7 @@ class SampleApp(tk.Tk):
             
             """
 
+        '''The method is responsible for writing the answer on the GUI and after a few seconds close the GUI'''
         def print_ans_using_global():
             ans = "Answer: \n"
             for i in range(len(tentative_acceptance)):
@@ -28,9 +31,9 @@ class SampleApp(tk.Tk):
             font_style = tkfont.Font(family="Lucida Grande", size=20)
             ans_label = tk.Label(self, text=ans, font=font_style)
             ans_label.grid(row=12, column=0, columnspan=2, pady=10, padx=40, ipadx=100)
-            main.after(6000, main.destroy)
+            main.after(6000, main.destroy)  #close the GUI
 
-        # Create Text Box
+        # Create Button
         add_file = tk.Button(self, text="Brows A File", command=lambda: file_dialog())
         add_file.grid(row=2, column=1, pady=20, padx=10,ipadx=50)
 
@@ -46,5 +49,6 @@ if __name__ == "__main__":
     import doctest
     (failures, tests) = doctest.testmod(report=True)
     print("{} failures, {} tests".format(failures, tests))
+    #Run the GUI
     main = SampleApp()
     main.mainloop()

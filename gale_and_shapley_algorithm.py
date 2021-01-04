@@ -2,23 +2,21 @@ import collections
 import doctest
 import os  # For check the path
 
+#Dictionaries that symbolize preferences
 preferred_rankings_student = {}
 preferred_rankings_university = {}
 
+#Lists
 free_student = []
 tentative_acceptance = []
 
 '''Initializes the students'''
-
-
 def init_free_student() -> None:
     for student in preferred_rankings_student.keys():
         free_student.append(student)
 
 
 '''Matching algorithm until stable match terminates'''
-
-
 def stable_matching() -> None:
     while len(free_student) > 0:
         for student in free_student:
@@ -26,8 +24,6 @@ def stable_matching() -> None:
 
 
 '''Find the first free woman available to a man at any given time'''
-
-
 def begin_matching(student: str) -> None:
     print("DEALING WITH %s" % student)
     for university in preferred_rankings_student[student]:
@@ -35,24 +31,24 @@ def begin_matching(student: str) -> None:
         # Boolean for whether university is taken or not
         taken_match = [couple for couple in tentative_acceptance if university in couple]
 
-        if len(taken_match) == 0:
+        if len(taken_match) == 0:  #The university has not yet accepted any students
             # tentatively acceptance the student and university
             tentative_acceptance.append([student, university])
             free_student.remove(student)
             print('%s is no longer a free student and is now tentatively acceptance to %s' % (student, university))
             break
-        elif len(taken_match) > 0:
+        elif len(taken_match) > 0:  #The university has already accepted another student
             print('%s is taken already..' % university)
 
             # Check ranking of the current student and the ranking of the 'to-be' student
-            current_university = preferred_rankings_university[university].index(taken_match[0][0])
-            potential_university = preferred_rankings_university[university].index(student)
+            current_student = preferred_rankings_university[university].index(taken_match[0][0])
+            potential_student = preferred_rankings_university[university].index(student)
 
-            if current_university < potential_university:
-                print('She\'s satisfied with %s..' % (taken_match[0][0]))
+            if current_student < potential_student:
+                print('The university satisfied with %s..' % (taken_match[0][0]))
             else:
                 print('%s is better than %s' % (student, taken_match[0][0]))
-                print('Making %s free again.. and tentatively engaging %s and %s' % (
+                print('Making %s free again.. and tentatively acceptance %s to %s' % (
                     taken_match[0][0], student, university))
 
                 # The new student is acceptance
@@ -65,8 +61,8 @@ def begin_matching(student: str) -> None:
                 taken_match[0][0] = student
                 break
 
-
-def init_dicts(path: str):
+'''Inserts a file that the user has uploaded the two dictionaries'''
+def init_dicts(path: str) -> None:
     have_dict_student = False
     have_dict_university = False
     if os.path.exists(path):  # Path is good
@@ -74,11 +70,11 @@ def init_dicts(path: str):
 
             while True:
                 line = file.readline()
-                if not line:
+                if not line:  #We have reached the end of the file
                     break
-                if have_dict_student and have_dict_university:
+                if have_dict_student and have_dict_university:  #We extracted the 2 dictionaries from the file
                     break
-                if "student" in line or "Student" in line:
+                if "student" in line or "Student" in line:  #Get the preferred_rankings_student dictionary
                     have_dict_student = True
                     line = file.readline()
                     while line != "\n":
@@ -92,7 +88,7 @@ def init_dicts(path: str):
                             preference_student_list.append(preference_student_second[x])
                         preferred_rankings_student.update({key: preference_student_list})
                         line = file.readline()
-                if "university" in line or "University" in line:
+                if "university" in line or "University" in line:  #Get the preferred_rankings_university dictionary
                     have_dict_university = True
                     line = file.readline()
                     while line != "\n":
@@ -110,7 +106,7 @@ def init_dicts(path: str):
                         line = file.readline()
 
 
-def activate_all_func():
+def activate_all_func() -> None:
     init_free_student()
     print(free_student)
     stable_matching()

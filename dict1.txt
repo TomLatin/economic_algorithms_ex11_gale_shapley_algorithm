@@ -1,0 +1,10 @@
+student:
+Tomer: [Batya,Aviva,Gila]
+Shlomo: [Aviva,Batya,Gila]
+Rafi: [BatyaAviva,Gila]
+
+university:
+Aviva: [Rafi,Shlomo,Tomer]
+Batya: [Shlomo,Rafi,Tomer]
+Gila: [Shlomo,Rafi,Tomer]
+
