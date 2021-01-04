@@ -44,7 +44,7 @@ After clicking the submit button you will get an answer in the same window, as f
 After a few seconds the window closes automatically.
 
 ### Explanation of the algorithm:
-[wikipedia](https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm)
+[wikipedia](https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm) <br />
 A good explanation on [YouTube](https://www.youtube.com/watch?v=FhRf0j068ZA), according to which I implemented the algorithm
 
 ### Credit:
