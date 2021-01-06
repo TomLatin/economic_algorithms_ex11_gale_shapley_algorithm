@@ -3,7 +3,9 @@ import doctest
 import os  # For check the path
 import  sys
 import logging
+
 logger = logging.getLogger(__name__)
+
 
 '''Matching algorithm until stable match terminates'''
 def stable_matching(preferred_rankings_student: dict, preferred_rankings_university: dict) -> None:
@@ -13,9 +15,7 @@ def stable_matching(preferred_rankings_student: dict, preferred_rankings_univers
     >>> preferred_rankings_university = {'Yale': ['ryan','blake','josh','connor'],'Harvard': ['ryan','blake','connor','josh'],'NYU': ['connor','josh','ryan','blake'],'MIT': ['ryan','josh','connor','blake']}
     >>> stable_matching(preferred_rankings_student,preferred_rankings_university)
     [['ryan', 'Yale'], ['blake', 'Harvard'], ['josh', 'MIT'], ['connor', 'NYU']]
-    """
 
-    """
     >>> preferred_rankings_student= {'Tomer': ['Batya','Aviva','Gila'],'Shlomo': ['Aviva','Batya','Gila'],'Rafi': ['Batya','Aviva','Gila']}
     >>> preferred_rankings_university = {'Aviva': ['Rafi','Shlomo','Tomer'],'Batya': ['Shlomo','Rafi','Tomer'],'Gila': ['Shlomo','Rafi','Tomer']}
     >>> stable_matching(preferred_rankings_student,preferred_rankings_university)
@@ -34,7 +34,7 @@ def stable_matching(preferred_rankings_student: dict, preferred_rankings_univers
 
 '''Find the first free woman available to a man at any given time'''
 def begin_matching(student: str,preferred_rankings_student:dict, preferred_rankings_university:dict, tentative_acceptance:list, free_student) -> None:
-
+    logger = logging.getLogger(__name__)
     logger.info("DEALING WITH %s" % student)
     for university in preferred_rankings_student[student]:
 
@@ -70,6 +70,9 @@ def begin_matching(student: str,preferred_rankings_student:dict, preferred_ranki
                 # Update the student of the university (tentatively)
                 taken_match[0][0] = student
                 break
+logger.addHandler(logging.StreamHandler(sys.stdout))
+logger.setLevel(logging.INFO)
+
 
 '''Inserts a file that the user has uploaded the two dictionaries'''
 def init_dicts(path: str, preferred_rankings_student, preferred_rankings_university) -> None:
@@ -119,6 +122,5 @@ if __name__ == "__main__":
     import doctest
     (failures, tests) = doctest.testmod(report=True)
     print("{} failures, {} tests".format(failures, tests))
-
     logger.addHandler(logging.StreamHandler(sys.stdout))
     logger.setLevel(logging.INFO)

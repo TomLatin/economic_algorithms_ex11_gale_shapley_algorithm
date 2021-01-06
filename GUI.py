@@ -4,7 +4,6 @@ from tkinter import font as tkfont, filedialog
 
 from gale_and_shapley_algorithm import init_dicts, stable_matching
 
-
 class SampleApp(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
@@ -32,7 +31,7 @@ class SampleApp(tk.Tk):
 
         # Create Button
         add_file = tk.Button(self, text="Brows A File", command=lambda: file_dialog())
-        add_file.grid(row=2, column=1, pady=20, padx=10,ipadx=50)
+        add_file.grid(row=2, column=1, pady=20, padx=10, ipadx=50)
 
         # Creat Text Box Labels
         add_file_label = tk.Label(self, text="Open A File:")
@@ -41,11 +40,10 @@ class SampleApp(tk.Tk):
         preferred_rankings_student = {}
         preferred_rankings_university = {}
         # Creat Submit Button
-        submit_btn = tk.Button(self, text="Submit",command=lambda: [init_dicts(name_file,preferred_rankings_student,preferred_rankings_university), print_ans_using_global(stable_matching(preferred_rankings_student, preferred_rankings_university))])
+        submit_btn = tk.Button(self, text="Submit",command=lambda: [init_dicts(name_file, preferred_rankings_student, preferred_rankings_university), print_ans_using_global(stable_matching(preferred_rankings_student, preferred_rankings_university))])
         submit_btn.grid(row=10, column=0, columnspan=2, pady=50, padx=40, ipadx=100)
 
 if __name__ == "__main__":
-
     #Run the GUI
     main = SampleApp()
     main.mainloop()
