@@ -35,13 +35,13 @@ A concrete example:
 >MIT: [ryan,josh,connor,blake] <br />
 > <br />
 
-**pay attention!** If the format is not working properly it will not work. <br />
-**Note** the number of students and the number of universities must be the same.
+**Pay attention!** If the format is not like the demand, the program will not work correctly. <br />
+**Note** The number of students and universities must be the same.
 
-After clicking the submit button you will get an answer in the same window, as follows: <br />
+After clicking the submit button, you will get an answer in the same window as follows: <br />
 <img width="200" src="https://user-images.githubusercontent.com/57855070/103459700-cfc13900-4d19-11eb-9292-4b2e21466a2a.png">
 
-After a few seconds the window closes automatically.
+After a few seconds, the window closes automatically.
 
 ### Explanation of the algorithm:
 [wikipedia](https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm) <br />
